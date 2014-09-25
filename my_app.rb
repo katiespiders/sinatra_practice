@@ -10,8 +10,9 @@ class MyApp < Sinatra::Base # has many built in methods
     erb "about_me".to_sym
   end
 
-  get "/posts/:post_name" do
-    name = params[:post_name]
-    erb :"/posts/#{name}"
+  get "/posts/:year/:month/:day/:post_name" do
+    year, month, day, name = params[:year], params[:month], params[:day], params[:post_name]
+    full_path = "/posts/#{year}/#{month}/#{day}/#{name}"
+    erb full_path.to_sym
   end
 end

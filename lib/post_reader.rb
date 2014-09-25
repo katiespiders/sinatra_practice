@@ -8,7 +8,7 @@ class PostReader
   end
 
   def most_recent(n)
-
+    @posts.slice(0, n)
   end
 end
 

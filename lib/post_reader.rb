@@ -4,7 +4,8 @@ class PostReader
   def initialize
     post_paths = Dir.glob("views/posts/*/*/*/*")
     @posts = post_paths.collect { |post_path| Post.new(post_path) }
-    @posts.sort_by { |post| post.timestamp }.reverse!
+    @posts.sort_by! { |post| post.timestamp }
+    @posts.reverse!
   end
 
   def most_recent(n)

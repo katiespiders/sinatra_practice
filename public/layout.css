@@ -89,10 +89,12 @@ a:visited {
   color: #d9e485
 }
 
+
+/*figure out how to nest these*/
 .navigation {
   /*position: fixed;*/
   /*top: 0;*/
-  background-color: #223534;
+  background-color: #3b6e6d;
   padding: 5px;
   border-radius: 5px;
   box-shadow: -1px 1px 2px;
@@ -102,6 +104,15 @@ a:visited {
   display: inline-block;
   padding: 2px 10px 2px 10px;
   font-family: optima;
+  background-color: #223534;
   font-size: 1.2em;
+  color: #d9e485
+}
+
+.blog_navigation a {
+  display: inline-block;
+  padding: 2px 10px 2px 10px;
+  font-family: optima;
+  background-color: #223534;
   color: #d9e485
 }

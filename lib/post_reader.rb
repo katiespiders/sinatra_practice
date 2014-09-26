@@ -124,6 +124,6 @@ class Post
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
 
-    @index_entry = "<li><a href=\"#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(0,50)}<p>"
+    @index_entry = "<li><a href=\"#{@path}\">#{@name}</a>   #{@timestamp} </li><p>#{@contents.slice(0,50)}<p>"
   end
 end

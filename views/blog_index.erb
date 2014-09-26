@@ -1,10 +1,20 @@
 <% require './lib/post_reader.rb' %>
 
-<% page = params["splat"][0].slice(1..-1).to_i %>
+<% page = params["splat"][0].slice(1..-1) %>
+
 <% PER_PAGE = PostReader::PER_PAGE %>
 <% blog = PostReader.new %>
 
-<% if blog.first_page?(page) %>
+<% if page.downcase == 'all' %>
+  <h3>All blog posts:</h3>
+
+  <ul>
+    <% blog.most_recent(blog.count).each do |post| %>
+      <%=post.index_entry%>
+    <% end %>
+  </ul>
+
+<% elsif blog.first_page?(page.to_i) %>
 
   <h3><%=blog.first_index_heading%></h3>
 
@@ -15,7 +25,7 @@
   </ul>
 
 <% else %>
-
+  <% page = page.to_i %>
   <h3><%=blog.later_index_heading(page)%></h3>
 
   <% if blog.last_page?(page) then page = blog.last_page end %>
@@ -32,4 +42,5 @@
 <a href="/blog-index">First Page</a>
 <%=blog.footer_links(page)%>
 <a href="/blog-index/<%=blog.last_page%>">Last Page</a>
+<a href="/blog-index/all">All Posts</a>
 </div>

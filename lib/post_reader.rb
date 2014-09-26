@@ -75,6 +75,7 @@ class PostReader
     page + 2 > @last_page
   end
 
+  # condense all this shit
   def all_link_strings
     links = ""
     (1..@last_page).each { |i| links += link_string(i) }

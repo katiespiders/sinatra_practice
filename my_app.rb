@@ -25,6 +25,10 @@ class MyApp < Sinatra::Base # has many built in methods
     redirect to("/blog-index")
   end
 
+  get '/blog-all' do
+    erb "blog_all".to_sym
+  end
+
   get '/new-post' do
     erb "new_post".to_sym
   end

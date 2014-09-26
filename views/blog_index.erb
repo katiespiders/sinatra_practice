@@ -1,17 +1,28 @@
 <% require './lib/post_reader.rb' %>
 
+<% page = params["splat"][0].slice(1..-1) %>
 
 <% blog = PostReader.new %>
-<% if blog.empty? %>
-  <h3> I haven't made any posts! </h3>
+
+<% if blog.first_page?(page) %>
+
+  <h3><%=blog.first_index_heading%></h3>
+
+  <ul>
+    <% blog.most_recent(5).each do |post| %>
+      <li><a href="<%= post.path %>"><%= post.name%></a> <%= post.date %> </li>
+     <p> <%= post.contents%> <p>
+     <% end %>
+  </ul>
+
 <% else %>
-
-<h2> Last 5 posts </h2>
-<ul>
-
-  <% blog.most_recent(5).each do |post| %>
-    <li><a href="<%= post.path %>"><%= post.name%></a> <%= post.date %> </li>
-   <!-- <p> <%= post.contents%> <p><hr> -->
-   <% end %>
-  <% end %>
-</ul>
+  <% page = page.to_i %>
+  <h3><%=blog.later_index_heading(page)%></h3>
+  <% if blog.last_page?(page) then page = blog.last_page end %>
+  <ul>
+    <% blog.slice((page-1)*5, 5).each do |post| %>
+      <li><a href="<%= post.path %>"><%= post.name%></a> <%= post.date %> </li>
+      <p> <%= post.contents%> <p>
+      <% end %>
+    </ul>
+<% end %>

@@ -14,7 +14,7 @@ class MyApp < Sinatra::Base # has many built in methods
     erb "so_ugly".to_sym
   end
 
-  get '/blog-index' do
+  get '/blog-index*' do
     erb "blog_index".to_sym
   end
 

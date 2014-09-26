@@ -16,6 +16,9 @@ class PostReader
     @posts.slice(start, n)
   end
 
+  def empty?
+    @posts.count == 0
+  end
 end
 
 class Post

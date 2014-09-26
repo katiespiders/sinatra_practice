@@ -10,8 +10,23 @@ class MyApp < Sinatra::Base # has many built in methods
     erb "about_me".to_sym
   end
 
-  get '/dicking-around' do
-    erb "dicking_around".to_sym
+  get '/so-ugly' do
+    erb "so_ugly".to_sym
+  end
+
+  get '/blog-index' do
+    erb "blog_index".to_sym
+  end
+
+  post '/blog-index' do
+    # erb "blog_index".to_sym
+    puts params.inspect
+    # add input to something
+    redirect to("/blog-index")
+  end
+
+  get '/new-post' do
+    erb "new_post".to_sym
   end
 
   get "/posts/:year/:month/:day/:post_name" do

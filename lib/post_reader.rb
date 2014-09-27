@@ -33,7 +33,7 @@ class PostReader
 
   def first_index_heading
     case @count
-    when 0 then "I haven't made any posts!"
+    when 0 then "I haven't made any posts yet!"
     when 1 then "My one lonely post:"
     when 2..PER_PAGE then "All #{@count} posts:"
     else "Latest #{PER_PAGE} posts:"
@@ -124,6 +124,6 @@ class Post
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
 
-    @index_entry = "<li><a href=\"#{@path}\">#{@name}</a>   #{@timestamp} </li><p>#{@contents.slice(0,50)}<p>"
+    @index_entry = "<li><a href=\"#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(0,250)}<p>"
   end
 end

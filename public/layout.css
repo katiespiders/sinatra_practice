@@ -1,84 +1,54 @@
-body {
-    font-size: 16px;
-    color: black;
-    background-color: #329b9b;
-    margin: 20px;
-    padding: 0;
-font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
-    line-height: 1.2;
-/* This is a comment, by the way */
+header {
+  display: block;
+  background-color: #2F5248;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: -1px 1px 2px;
 }
 
-p {
-    line-height: 1.2;
+nav {
+  display: block;
+  background-color: #2F5248;
+  height: 30px;
+  border-radius: 5px;
 }
 
-h1 {
-    color: #ffc;
-    background-color: #3b6e6d;
-    font-size: 2em;
-    margin: 0;
-    margin-bottom: 7px;
-    padding: 4px;
-    font-style: italic;
-    text-align: center;
-    letter-spacing: 0.5em;
-    border-bottom-style: solid;
-    border-bottom-width: 0.5em;
-    border-bottom-color: #223534;
-    border-radius: 5px
+header nav {
+  float: right;
 }
 
-h2 {
-    color: white;
-    background-color: #223534;
-    font-size: 1.5em;
-    margin: 0;
-    padding: 2px;
-    padding-left: 14px;
-    border-radius: 5px
+nav a {
+  display: inline-block;
+  padding: 2px;
+  margin: 2px;
+  background-color: #223534;
+  border-radius: 5px;
+
+  font-family: optima;
+  font-size: 1.2em;
+  color: #d9e485;
+  text-decoration: none;
 }
 
-h3 {
-    color: white;
-    background-color: #3b6e6d;
-    padding: 2px;
-    padding-left: 14px;
-    border-radius: 5px;
-    font-size: 1.25em;
+nav a:hover {
+  background-color: #34514e;
 }
 
-img {
-    border-style: dashed;
-    border-width: 2px;
-    border-color: #ccc;
+header a {
+  display: inline-block;
+  padding: 2px;
+  margin: 2px;
+  background-color: #223534;
+  border-radius: 5px;
+
+  font-family: optima;
+  font-size: 1.2em;
+  color: #d9e485;
+  text-decoration: none;
 }
 
-a {
-    text-decoration: none;
-}
-
-strong {
-    font-style: italic;
-    text-transform: uppercase;
-}
-
-li {
-    color: black;
-    /*font-style: italic;*/
-    line-height: 1.25;
-}
-
-table {
-    background-color: #ccc;
-}
-
-blockquote {
-  background-color: #ccc;
-}
-
-pre {
-  background-color: #ccc;
+header a:hover {
+  background-color: #34514e;
 }
 
 a:link {
@@ -89,30 +59,6 @@ a:visited {
   color: #d9e485
 }
 
-
-/*figure out how to nest these*/
-.navigation {
-  /*position: fixed;*/
-  /*top: 0;*/
-  background-color: #3b6e6d;
-  padding: 5px;
-  border-radius: 5px;
-  box-shadow: -1px 1px 2px;
-}
-
-.navigation a {
-  display: inline-block;
-  padding: 2px 10px 2px 10px;
-  font-family: optima;
-  background-color: #223534;
-  font-size: 1.2em;
-  color: #d9e485
-}
-
-.blog_navigation a {
-  display: inline-block;
-  padding: 2px 10px 2px 10px;
-  font-family: optima;
-  background-color: #223534;
-  color: #d9e485
+body {
+  background-color: #4b8273
 }

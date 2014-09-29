@@ -1,16 +1,28 @@
+<html>
 <head>
   <link href="/layout.css" rel="stylesheet">
   <!-- // <script src="/app.js"></script> -->
 </head>
-<div class="navigation">
+<body>
+<header>
+  <a href="/">Home</a>
+  <nav>
+    <a href="/about-me">About me</a>
+    <a href="/blog-index">Blog</a>
+  </nav>
+</header>
 
-<a href="/">Home</a>
-<a href="/about-me">About me</a>
-<a href="/blog-index">Blog</a>
 
- </div>
-
+<section>
 <hr>
 <%= yield %>
 <hr>
+</section>
+
+<footer>
 Some smartass comment goes here
+</footer>
+
+</div>
+</body>
+</html>

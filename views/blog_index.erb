@@ -37,10 +37,11 @@
 
 <% end %>
 
-<hr>
-<div class = "blog_navigation" >
-<a href="/blog-index">First Page</a>
-<%=blog.footer_links(page)%>
-<a href="/blog-index/<%=blog.last_page%>">Last Page</a>
-<a href="/blog-index/all">All Posts</a>
-</div>
+<nav>
+  <div class = "blog-nav" >
+    <a href="/blog-index">First Page</a>
+    <%=blog.footer_links(page)%>
+    <a href="/blog-index/<%=blog.last_page%>">Last Page</a>
+    <a href="/blog-index/all">All Posts</a>
+  </div><!--blog-nav-->
+</nav>

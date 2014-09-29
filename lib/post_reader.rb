@@ -113,22 +113,21 @@ class Post
     @name = post_path.split('/').last
     @name.gsub!(".erb", "")
 
-    puts post_path
     @path = post_path.gsub("views/", "")
-    puts @path
     @path.gsub!("blog-index", "")
-    puts @path
     @path.gsub!(".erb", "")
-    puts @path
 
-    @timestamp = File.open(post_path).ctime # how can I get time created, not time changed?
+    @timestamp = File.open(post_path).ctime # how can I get time created, not time changed? and this is even stupider with heroku because ctime is whenever i pushed to heroku
     @date = timestamp.strftime "%Y-%m-%d"
 
     file = File.new(post_path)
     @contents = file.read
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
+    slice = @contents.slice(/A.{250}\S*/)
 
-    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(0,250)}<p>"
+    puts @contents
+    puts slice
+    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(/\A.{250}\S*/)} ...<p>"
   end
 end

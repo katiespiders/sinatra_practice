@@ -113,8 +113,13 @@ class Post
     @name = post_path.split('/').last
     @name.gsub!(".erb", "")
 
+    puts post_path
     @path = post_path.gsub("views/", "")
+    puts @path
+    @path.gsub!("blog-index", "")
+    puts @path
     @path.gsub!(".erb", "")
+    puts @path
 
     @timestamp = File.open(post_path).ctime # how can I get time created, not time changed?
     @date = timestamp.strftime "%Y-%m-%d"
@@ -124,6 +129,6 @@ class Post
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
 
-    @index_entry = "<li><a href=\"#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(0,250)}<p>"
+    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(0,250)}<p>"
   end
 end

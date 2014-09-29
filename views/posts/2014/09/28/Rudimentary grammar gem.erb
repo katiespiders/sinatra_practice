@@ -1,0 +1,64 @@
+<title>Rudimentary grammar gem</title>
+<p>
+I got sidetracked in one of our very early projects by a compulsion to make the program's output grammatically correct ("You can go ['east', 'west', 'south']" was not going to cut it) so I wrote a simple little method to parse an array to a list. Its first iteration, in the dungeon game, was as follows:
+</p>
+<pre><code> def list_to_text(list, separator=" and ")
+      if list.length > 2
+        i = list.length - 1
+        text = ""
+
+        i.times do
+          text += list[i] + ", "
+          i -= 1
+        end
+
+        text += (separator.lstrip + list[0])
+        return text
+      elsif list.length == 2
+        return list.join(separator)
+      else
+        return list[0]
+      end
+    end</code></pre>
+<p>
+This did the three things I wanted it to be able to do:
+<ol id="features"><li> with a list of one item, just print that item</li>
+  <li> with a list of two items, print the two items separated by "and" (which can be changed by the <code>separator</code> argument)</li>
+  <li> with a longer list, print the items separated by commas with the separator at the end</li></ol>
+It also reversed the array, and while I have some hazy memory of there being some coherent reason why I wrote it this way, I have no idea what that could have been. Apparently it didn't bother me though, since the directions weren't in any particular order anyway.</p><p>
+
+But my solar system program had a nice alphabetical list of planets, and having my method reverse that made me twitch, so I fixed it...</p>
+
+<pre><code>
+  def list_to_text(list, separator=" and ")
+    if list.length > 2
+      i = 0
+      text = ""
+
+      (list.length - 1).times do
+        text += list[i] + ", "
+        i += 1
+      end
+
+      text += (separator.lstrip + list.last)
+      return text
+    # other stuff here
+  end</code></pre>
+
+<p>Somewhere in here I realized that since I was going to keep using this method, and that I'd probably like to have a place to put some more grammar-related methods as well, this would be a good opportunity to play around with making a gem. It also turned out to be a good chance to practice TDD on a very simple project, writing tests for every functionality of the code before writing the code itself. I wrote a spec for, among many other things, each of the 3 features I <a href="#features">listed above</a>, testing that the method <code>returns single entry with no extraneous crap for list of length 1</code>, <code>separates list of length 2 without commas</code>, and <code>separates lists > 2 by commas</code>.
+
+<p>Building a gem out of my simple little Grammar class turned out to actually be very simple. I followed the guide on <a href="http://guides.rubygems.org/make-your-own-gem/#">Rubygems.org</a> and made myself a (locally) working gem with remarkably little frustration. I have not yet published it, mostly because I was too lazy to think of a unique name, but I'll probably overcome that obstacle soonish...
+
+  <p>I added a very little bit more functionality than just the list-to-text conversion. To that method I added an argument for whether or not to use the Oxford comma (true by default, but not good enough for my husband, who was indignant that I would "allow people to do stupid shit like not using that comma".) I also made an embarrassingly-rudimentary method to add appropriate articles to words, using an even-more-rudimentary method to determine if a word is plural (<code>word[-1] == 's'</code>). One of the specs for this method:
+    <pre><code>it "doesn't understand dinosaurs" do
+      expect(Grammar.is_plural?('triceratops')).to eq true
+    end</code></pre>
+
+<p> The next thing I'd like to do with this is add the ability to import a dictionary of irregular plurals and irregular pronunciations, so that my little gem can understand dinosaurs. Everybody should understand dinosaurs.
+<br><br>
+  <h4> My favorite illustration of why you should always use the Oxford comma:</h4>
+  <pre><code>2.1.2 :002 > l=['my parents', 'Ayn Rand', 'God']
+ => ["my parents", "Ayn Rand", "God"]
+2.1.2 :003 > "I would like to dedicate this book to
+    #{Grammar.to_phrase(l, oxford: false)}"
+ => "I would like to dedicate this book to my parents, Ayn Rand and God"</code></pre>

@@ -1,8 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
 <title>Rudimentary grammar gem</title>
-
-<p>
+</head>
+<body>
+<article>
 I got sidetracked in one of our very early projects by a compulsion to make the program's output grammatically correct ("You can go ['east', 'west', 'south']" was not going to cut it) so I wrote a simple little method to parse an array to a list. Its first iteration, in the dungeon game, was as follows:
-</p>
 <pre><code> def list_to_text(list, separator=" and ")
       if list.length > 2
         i = list.length - 1
@@ -26,9 +29,9 @@ This did the three things I wanted it to be able to do:
 <ol id="features"><li> with a list of one item, just print that item</li>
   <li> with a list of two items, print the two items separated by "and" (which can be changed by the <code>separator</code> argument)</li>
   <li> with a longer list, print the items separated by commas with the separator at the end</li></ol>
-It also reversed the array, and while I have some hazy memory of there being some coherent reason why I wrote it this way, I have no idea what that could have been. Apparently it didn't bother me though, since the directions weren't in any particular order anyway.</p><p>
+<p>It also reversed the array, and while I have some hazy memory of there being some coherent reason why I wrote it this way, I have no idea what that could have been. Apparently it didn't bother me though, since the directions weren't in any particular order anyway.<p>
 
-But my solar system program had a nice alphabetical list of planets, and having my method reverse that made me twitch, so I fixed it...</p>
+But my solar system program had a nice alphabetical list of planets, and having my method reverse that made me twitch, so I fixed it...
 
 <pre><code>
   def list_to_text(list, separator=" and ")
@@ -65,3 +68,6 @@ But my solar system program had a nice alphabetical list of planets, and having 
 2.1.2 :003 > "I would like to dedicate this book to
     #{Grammar.to_phrase(l, oxford: false)}"
  => "I would like to dedicate this book to my parents, Ayn Rand and God"</code></pre>
+</article>
+</body>
+</html>

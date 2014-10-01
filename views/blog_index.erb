@@ -2,43 +2,44 @@
 
 <% page = params["splat"][0].slice(1..-1) %>
 <% PER_PAGE = PostReader::PER_PAGE %>
-<% blog = PostReader.new %>
+<!-- <% blog = PostReader.new %> -->
+<% blog = PostReader.new("views/test_posts/fourteen/*") %>
 
 <% if page == 'all' %>
   <h3>All <%=blog.count%> posts:</h3>
-
   <ul>
     <% blog.most_recent(blog.count).each do |post| %>
       <%=post.index_entry%>
     <% end %>
   </ul>
 
-<% elsif blog.first_page?(page.to_i) %>
-
-  <h3><%=blog.first_index_heading%></h3>
-
-  <ul>
-    <% blog.most_recent(PER_PAGE).each do |post| %>
-      <%=post.index_entry%>
-    <% end %>
-  </ul>
-
 <% else %>
   <% page = page.to_i %>
-  <h3><%=blog.later_index_heading(page)%></h3>
 
-  <% if blog.last_page?(page) then page = blog.last_page end %>
+  <% if blog.first_page?(page) %>
+    <h3><%=blog.first_index_heading%></h3>
+    <ul>
+      <% blog.most_recent(PER_PAGE).each do |post| %>
+        <%=post.index_entry%>
+      <% end %>
+    </ul>
 
-  <ul>
-    <% blog.slice((page-1)*PER_PAGE, PER_PAGE).each do |post| %>
-      <%=post.index_entry%>
-    <% end %>
-  </ul>
+  <% else %>
+    <h3><%=blog.later_index_heading(page)%></h3>
 
+    <% if blog.last_page?(page) then page = blog.last_page end %>
+
+    <ul>
+      <% blog.slice((page-1)*PER_PAGE, PER_PAGE).each do |post| %>
+        <%=post.index_entry%>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
+
 <br>
 <nav>
   <div class = "blog-nav" >
-    <%=blog.footer_links(page)%>
+    <%= page == 'all' ? blog.footer_all : blog.footer_links(page) %>
   </div><!--blog-nav-->
 </nav>

@@ -2,8 +2,8 @@ class PostReader
   attr_accessor :count, :last_page
   PER_PAGE = 2
 
-  def initialize
-    post_paths = Dir.glob("views/posts/*/*/*/*")
+  def initialize(posts_dir="views/posts/*/*/*/*")
+    post_paths = Dir.glob(posts_dir)
     @posts = post_paths.collect { |post_path| Post.new(post_path) }
     @posts.sort_by! { |post| post.timestamp }
     @posts.reverse!
@@ -53,7 +53,7 @@ class PostReader
     else
       first = (page - 1) * PER_PAGE + 1
       last = page * PER_PAGE
-      "Posts \##{first} - #{last}:"
+      "Posts #{first} to #{last}:"
     end
   end
 
@@ -61,25 +61,34 @@ class PostReader
     if @last_page == 1
       nil
     elsif @last_page <= 5
+      wrap(all_link_strings, page) + link_all
+    elsif near_start?(page)
+      wrap(first_link_strings, page) + link_last + link_all
+    elsif near_end?(page)
+      link_first + wrap(last_link_strings(page), page) + link_all
+    else
+      link_first + wrap(mid_link_strings(page), page) + link_last + link_all
+    end
+  end
+
+  def footer_all
+    if @last_page == 1
+      nil
+    elsif @last_page <=5
       all_link_strings + link_all
-    # elsif near_start?(page)
-    #   first_link_strings + link_last + link_all
-    # elsif near_end?(page)
-    #   link_first + last_link_strings + link_all
-    # else
-    #   link_first + mid_link_strings(page) + link_last + link_all
+    else
+      link_first + first_link_strings + link_last + link_all
     end
   end
 
   def near_start?(page)
-    page < 3
+    page.to_i < 3
   end
 
   def near_end?(page)
-    page + 2 > @last_page
+    page.to_i + 3 > @last_page
   end
 
-  # condense all this shit
   def all_link_strings
     links = ""
     (1..@last_page).each { |i| links += link_string(i) } if @last_page > 1
@@ -92,9 +101,9 @@ class PostReader
     links
   end
 
-  def last_link_strings
+  def last_link_strings(page)
     links = ""
-    start = @last_page - 5
+    start = @last_page - 4
     (start..@last_page).each { |i| links += link_string(i) }
     links
   end
@@ -105,8 +114,21 @@ class PostReader
     links
   end
 
-  def link_string(i)
-    "<a href=\"/blog-index/#{i}\">#{i}</a> "
+  def wrap(mid_string, page)
+    (page>1 ? prev_string(page):"") + mid_string + (page<@last_page? next_string(page):"")
+  end
+
+  def link_string(page)
+    "<a href=\"/blog-index/#{page}\">#{page}</a> "
+  end
+
+  def prev_string(page)
+    "<a href=\"/blog-index/#{page-1}\">Prev</a> "
+  end
+
+  def next_string(page)
+    page = 1 if first_page?(page)
+    "<a href=\"/blog-index/#{page+1}\">Next</a> "
   end
 
   def link_first

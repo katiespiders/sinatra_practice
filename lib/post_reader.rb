@@ -124,10 +124,9 @@ class Post
     @contents = file.read
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
-    slice = @contents.slice(/A.{250}\S*/)
+  #  slice = @contents.slice(/A.{250}\S*/)
 
-    puts @contents
-    puts slice
-    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{@contents.slice(/\A.{250}\S*/)} ...<p>"
+    snippet = @contents.slice(/<article>\s<p>\s.{200}\S*/)
+    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{snippet} ...<p>"
   end
 end

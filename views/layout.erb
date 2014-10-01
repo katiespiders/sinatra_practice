@@ -1,28 +1,36 @@
 <html>
-<head>
-  <link href="/layout.css" rel="stylesheet">
-  <!-- // <script src="/app.js"></script> -->
-</head>
-<body>
-<header>
-  <a href="/">Home</a>
-  <nav>
-    <a href="/about-me">About me</a>
-    <a href="/blog-index">Blog</a>
-  </nav>
-</header>
+  <head>
+    <!-- <link href="/css/resets.css" rel="stylesheet"> -->
+    <link href="/css/layout.css" rel="stylesheet">
+    <!-- // <script src="/app.js"></script> -->
+  </head>
+
+  <body>
+    <header>
+      <a href="/" class="title">Kung Fu Ipsum</a>
+      <nav>
+        <ul class="horizontal-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about-me">About me</a>
+            <ul class="dropdown">
+              <li><a href="#">Ada</a></li>
+              <li><a href="#">Seven Star</a></li>
+              <li><a href="#">Cats</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog-index">Blog</a></li>
+        </ul>
+      </nav>
+    </header>
 
 
-<section>
-<hr>
-<%= yield %>
-<hr>
-</section>
+    <section>
+      <hr>
+      <%= yield %>
+    </section>
 
-<footer>
-Some smartass comment goes here
-</footer>
 
-</div>
-</body>
+    <hr>
+    Don't steal my awesome content!
+  </body>
 </html>

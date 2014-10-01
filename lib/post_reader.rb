@@ -1,6 +1,6 @@
 class PostReader
   attr_accessor :count, :last_page
-  PER_PAGE = 5
+  PER_PAGE = 2
 
   def initialize
     post_paths = Dir.glob("views/posts/*/*/*/*")
@@ -42,11 +42,13 @@ class PostReader
 
   def later_index_heading(page)
     if last_page?(page)
-      if page * PER_PAGE == @count
-        "Oldest #{PER_PAGE} posts:"
+      case @count % PER_PAGE
+      when 0
+        "Oldest #{PER_PAGE} Posts"
+      when 1
+        "Oldest Post:"
       else
-        on_last_page = @count % PER_PAGE
-        on_last_page == 1 ? "Oldest post:" : "Oldest #{on_last_page} posts:"
+        "Oldest #{@count % PER_PAGE} Posts"
       end
     else
       first = (page - 1) * PER_PAGE + 1
@@ -56,14 +58,16 @@ class PostReader
   end
 
   def footer_links(page)
-    if @last_page <= 5
-      all_link_strings
-    elsif near_start?(page)
-      first_link_strings
-    elsif near_end?(page)
-      last_link_strings
-    else
-      mid_link_strings(page)
+    if @last_page == 1
+      nil
+    elsif @last_page <= 5
+      all_link_strings + link_all
+    # elsif near_start?(page)
+    #   first_link_strings + link_last + link_all
+    # elsif near_end?(page)
+    #   link_first + last_link_strings + link_all
+    # else
+    #   link_first + mid_link_strings(page) + link_last + link_all
     end
   end
 
@@ -78,7 +82,7 @@ class PostReader
   # condense all this shit
   def all_link_strings
     links = ""
-    (1..@last_page).each { |i| links += link_string(i) }
+    (1..@last_page).each { |i| links += link_string(i) } if @last_page > 1
     links
   end
 
@@ -90,7 +94,7 @@ class PostReader
 
   def last_link_strings
     links = ""
-    start = @last_page - 4
+    start = @last_page - 5
     (start..@last_page).each { |i| links += link_string(i) }
     links
   end
@@ -103,6 +107,18 @@ class PostReader
 
   def link_string(i)
     "<a href=\"/blog-index/#{i}\">#{i}</a> "
+  end
+
+  def link_first
+    "<a href=\"/blog-index\">First Page</a>"
+  end
+
+  def link_last
+    "<a href=\"/blog-index/#{@last_page}\">Last Page</a>"
+  end
+
+  def link_all
+    "<a href=\"/blog-index/all\">All posts</a>"
   end
 end
 
@@ -124,7 +140,6 @@ class Post
     @contents = file.read
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
-  #  slice = @contents.slice(/A.{250}\S*/)
 
     snippet = @contents.slice(/<article>\s<p>\s.{200}\S*/)
     @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{snippet} ...<p>"

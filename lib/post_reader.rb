@@ -163,7 +163,16 @@ class Post
     @timestamp = file.ctime
     @date = @timestamp.strftime "%Y/%m/%d"
 
-    snippet = @contents.slice(/<article>\s<p>\s.{200}\S*/)
-    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{snippet} ... <span title=\"Click to Expand\" class=\"expand\"> (view full post) </span><p><div class=\"hidden\">#{@contents}</div>"
+    match = /<article>\s*<p>\s*.{200}\S*/.match(@contents)
+    snippet = match.to_s
+    rest_of_post = match.post_match
+
+    @index_entry = <<-eos
+    <li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li>
+    <span>#{snippet}</span>
+    <a title=\"Click to Expand\" class=\"expand\"> ... (view full post)</a>
+    <div class = \"hidden\">#{rest_of_post}</span>
+    <a title=\"Click to Collapse\" class=\"collapse\"> (collapse post)</a>
+    eos
   end
 end

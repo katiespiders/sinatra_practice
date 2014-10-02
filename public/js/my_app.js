@@ -3,13 +3,18 @@
 
 $(document).ready(function () {
 
-    $(".expand").click(function () {
-        $(".hidden").toggle();
-        console.log("hi");
-    });
+  $(".expand").click(function() {
+    toggle_all();
+  });
 
-    // $(".hidden").click(function () {
-    //     $(this).toggle();
-    // });
+  $(".collapse").click(function() {
+    toggle_all();
+  });
+
+  toggle_all = function() {
+    $(".collapse").toggle();
+    $(".expand").toggle();
+    $(".hidden").toggle();
+  };
 
 });

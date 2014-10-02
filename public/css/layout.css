@@ -6,80 +6,59 @@ header {
   border-radius: 5px;
   box-shadow: -1px 1px 2px;
   font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
-  background-color: #2F5248;
   background: #2F5248 url(/images/kicking.png) no-repeat left center;
 }
 
+header .title {
+  display: inline-block;
+  margin-left: 70px;
+  margin-top: 35px;
+  margin-right: 4px;
+  padding-right: 4px;
+  font-size: 3em;
+  background-color: #2F5248;
+  text-decoration: none;
+}
+
+/* Nav styling for header nav links only */
 header nav {
   float: right;
   margin-top: 54px;
 }
 
+/* Nav styling to include blog-nav links on blog index page */
 nav {
   display: block;
-  background-color: #2F5248;
   height: 30px;
   border-radius: 5px;
   font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+  background-color: #34514e;
 }
-
-header .title {
-  margin-left: 70px;
-  margin-top: 35px;
-  padding-right: 4px;
-  margin-right: 4px;
-  font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
-  font-size: 3em;
-  background-color: #2F5248;
-  display: inline-block;
-  text-decoration: none;
-}
-/*
-.container {
-  max-width: 900px;
-}*/
-
-/*.blog-nav {
-  position: relative;
-}
-*/
 
 nav a {
   display: inline-block;
   padding: 2px;
   margin: 2px;
-  background-color: #223534;
   border-radius: 5px;
-
   font-size: 1.2em;
   color: #d9e485;
   text-decoration: none;
+  background-color: #2F5248;
 }
 
 nav a:hover {
-  background-color: #34514e;
-}
-
-.blog-nav a {
-  font-size: 1em;
-}
-
-a:link {
-  color: #1129c6
-}
-
-a:visited {
-  color: #d9e485
-}
-
-nav .horizontal-list > li {
-  display: inline-block;
+  background-color: #223534;
 }
 
 nav ul {
   list-style: none;
 }
 
+nav .horizontal-list > li {
+  display: inline-block;
+}
+
+/* Drop-down menu styling */
 .dropdown {
   display: none;
   border-radius: 5px;
@@ -87,7 +66,7 @@ nav ul {
 
 li:hover > .dropdown {
   position: absolute;
-  background-color: #223534;
+  background-color: #2F5248;
   display: block;
   margin: 0;
   padding: 0;
@@ -97,6 +76,12 @@ li:hover > .dropdown {
   color: #d9e485;
 }
 
+/* Overwrites default nav font size for blog nav links */
+.blog-nav a {
+  font-size: 1em;
+}
+
+/* Elements toggled when showing/hiding full blog post */
 .hidden {
   display: none;
   margin: 0 10px 0 10px;
@@ -113,13 +98,23 @@ li:hover > .dropdown {
   display: none;
 }
 
+/* General html styling */
 body {
   background-color: #4b8273;
-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  max-width: 900px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 10px;
   text-align: justify;
+  max-width: 900px;
   min-width: 630px;
   /*position: static;*/
+}
+
+a:link {
+  color: #1129c6
+}
+
+a:visited {
+  color: #d9e485
 }
 
 pre {
@@ -139,4 +134,8 @@ img {
 
 ul {
   line-height: 1.5em;
+}
+
+.small {
+  font-size: 14px;
 }

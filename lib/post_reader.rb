@@ -41,19 +41,21 @@ class PostReader
   end
 
   def later_index_heading(page)
-    if last_page?(page)
-      case @count % PER_PAGE
-      when 0
-        "Oldest #{PER_PAGE} Posts"
-      when 1
-        "Oldest Post:"
+    unless first_page?(page)
+      if last_page?(page)
+        case @count % PER_PAGE
+        when 0
+          "Oldest #{PER_PAGE} Posts:"
+        when 1
+          "Oldest Post:"
+        else
+          "Oldest #{@count % PER_PAGE} Posts:"
+        end
       else
-        "Oldest #{@count % PER_PAGE} Posts"
+        first = (page - 1) * PER_PAGE + 1
+        last = page * PER_PAGE
+        "Posts #{first} to #{last}:"
       end
-    else
-      first = (page - 1) * PER_PAGE + 1
-      last = page * PER_PAGE
-      "Posts #{first} to #{last}:"
     end
   end
 
@@ -145,34 +147,48 @@ class PostReader
 end
 
 class Post
-  attr_accessor :name, :path, :date, :timestamp, :contents, :index_entry
+  attr_accessor :index_entry, :timestamp
 
   def initialize(post_path)
-    @name = post_path.split('/').last
-    @name.gsub!(".erb", "")
+    @post_path = post_path
 
-    @path = post_path.gsub("views/", "")
-    @path.gsub!("blog-index", "")
-    @path.gsub!(".erb", "")
-
-    @timestamp = File.open(post_path).ctime # how can I get time created, not time changed? and this is even stupider with heroku because ctime is whenever i pushed to heroku
-    @date = timestamp.strftime "%Y-%m-%d"
-
-    file = File.new(post_path)
-    @contents = file.read
-    @timestamp = file.ctime
-    @date = @timestamp.strftime "%Y/%m/%d"
-
-    match = /<article>\s*<p>\s*.{200}\S*/.match(@contents)
-    snippet = match.to_s
-    rest_of_post = match.post_match
-
+    name = file_name
+    path = file_path
     @index_entry = <<-eos
-    <li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li>
-    <span>#{snippet}</span>
-    <a title=\"Click to Expand\" class=\"expand\"> ... (view full post)</a>
-    <div class = \"hidden\">#{rest_of_post}</span>
-    <a title=\"Click to Collapse\" class=\"collapse\"> (collapse post)</a>
+    <li><a href=\"/#{path}\">#{name}</a>
+    <span class=\"small\">#{@date}</li>
     eos
+    @index_entry += preview
+  end
+
+  def file_name
+    @post_path.split('/').last.gsub(".erb", "")
+  end
+
+  def file_path
+    path = @post_path.gsub("views/", "")
+    path.gsub!("blog-index", "")
+    path.gsub!(".erb", "")
+  end
+
+  def preview
+    match = /<article>\s*<p>\s*.{200}\S*/.match(contents)
+    if match
+      snippet = match.to_s
+      rest_of_post = match.post_match
+      <<-eos
+        <span>#{snippet}</span>
+        <a title=\"Click to Expand\" class=\"expand\"> ... (view full post)</a>
+        <div class = \"hidden\">#{rest_of_post}</span>
+        <a title=\"Click to Collapse\" class=\"collapse\"> <br>(collapse post)</a>
+      eos
+    else
+      ""
+    end
+  end
+
+  def contents
+    file = File.new(@post_path)
+    file.read
   end
 end

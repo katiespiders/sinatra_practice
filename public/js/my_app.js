@@ -4,12 +4,12 @@
 $(document).ready(function () {
 
     $(".expand").click(function () {
-        $(".content").toggle();
+        $(".hidden").toggle();
         console.log("hi");
     });
 
-    $(".content").click(function () {
-        $(this).toggle();
-    });
+    // $(".hidden").click(function () {
+    //     $(this).toggle();
+    // });
 
 });

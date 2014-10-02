@@ -98,6 +98,15 @@ li:hover > .dropdown {
   color: #d9e485;
 }
 
+.hidden {
+  display: none;
+}
+
+.expand {
+  text-decoration: underline;
+  color: #1129c6;
+}
+
 body {
   background-color: #4b8273;
   font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;

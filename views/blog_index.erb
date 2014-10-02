@@ -1,9 +1,12 @@
+<html>
+<body>
+
 <% require './lib/post_reader.rb' %>
 
 <% page = params["splat"][0].slice(1..-1) %>
 <% PER_PAGE = PostReader::PER_PAGE %>
 <!-- <% blog = PostReader.new %> -->
-<% blog = PostReader.new("views/test_posts/fourteen/*") %>
+<% blog = PostReader.new %>
 
 <% if page == 'all' %>
   <h3>All <%=blog.count%> posts:</h3>
@@ -43,3 +46,10 @@
     <%= page == 'all' ? blog.footer_all : blog.footer_links(page) %>
   </div><!--blog-nav-->
 </nav>
+
+</body>
+
+<script src="/js/jquery.js" type="text/javascript"></script>
+<script src="/js/my_app.js" type="text/javascript"></script>
+
+</html>

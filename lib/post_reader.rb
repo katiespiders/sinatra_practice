@@ -164,6 +164,6 @@ class Post
     @date = @timestamp.strftime "%Y/%m/%d"
 
     snippet = @contents.slice(/<article>\s<p>\s.{200}\S*/)
-    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{snippet} ...<p>"
+    @index_entry = "<li><a href=\"/#{@path}\">#{@name}</a>   #{@date} </li><p>#{snippet} <span title=\"Click to Expand\" class=\"expand\">...</span><p>"
   end
 end

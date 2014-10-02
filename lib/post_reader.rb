@@ -1,3 +1,5 @@
+require 'date'
+
 class PostReader
   attr_accessor :count, :last_page
   PER_PAGE = 2
@@ -5,7 +7,7 @@ class PostReader
   def initialize(posts_dir="views/posts/*/*/*/*")
     post_paths = Dir.glob(posts_dir)
     @posts = post_paths.collect { |post_path| Post.new(post_path) }
-    @posts.sort_by! { |post| post.timestamp }
+    @posts.sort_by! { |post| post.datestamp }
     @posts.reverse!
     @count = @posts.count
     @last_page = (@count/PER_PAGE.to_f).ceil
@@ -147,15 +149,16 @@ class PostReader
 end
 
 class Post
-  attr_accessor :index_entry
+  attr_accessor :index_entry, :datestamp
 
   def initialize(post_path)
     @post_path = post_path
     name = file_name
     path = file_path
+    @datestamp = date
     @index_entry = <<-EOS
     <li><a href=\"/#{path}\">#{name}</a>
-    <span class=\"small\">#{@date}</li>
+    <span class=\"small\">#{@datestamp}</li>
     EOS
     @index_entry += preview
   end
@@ -188,4 +191,13 @@ class Post
     file = File.new(@post_path)
     file.read
   end
+
+  def date
+    path = @post_path.gsub("views/posts/", "")
+    year = path.slice(0,4).to_i
+    month = path.slice(5,2).to_i
+    day = path.slice(8,2).to_i
+    Date.new(year, month, day)
+  end
+
 end

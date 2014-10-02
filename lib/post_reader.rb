@@ -43,21 +43,19 @@ class PostReader
   end
 
   def later_index_heading(page)
-    unless first_page?(page)
-      if last_page?(page)
-        case @count % PER_PAGE
-        when 0
-          "Oldest #{PER_PAGE} Posts:"
-        when 1
-          "Oldest Post:"
-        else
-          "Oldest #{@count % PER_PAGE} Posts:"
-        end
+    if last_page?(page)
+      case @count % PER_PAGE
+      when 0
+        "Oldest #{PER_PAGE} Posts:"
+      when 1
+        "Oldest Post:"
       else
-        first = (page - 1) * PER_PAGE + 1
-        last = page * PER_PAGE
-        "Posts #{first} to #{last}:"
+        "Oldest #{@count % PER_PAGE} Posts:"
       end
+    else
+      first = (page - 1) * PER_PAGE + 1
+      last = page * PER_PAGE
+      "Posts #{first} to #{last}:"
     end
   end
 
@@ -158,7 +156,7 @@ class Post
     @datestamp = date
     @index_entry = <<-EOS
     <li><a href=\"/#{path}\">#{name}</a>
-    <span class=\"small\">#{@datestamp}</li>
+    <span class=\"small\">#{@datestamp.strftime("%B %-d, %Y")}</li>
     EOS
     @index_entry += preview
   end
@@ -183,7 +181,7 @@ class Post
         <a title=\"Click to Collapse\" class=\"collapse\"> <br>(collapse post)</a>
       EOS
     else
-      ""
+      "<br>"
     end
   end
 
@@ -197,7 +195,7 @@ class Post
     year = path.slice(0,4).to_i
     month = path.slice(5,2).to_i
     day = path.slice(8,2).to_i
-    Date.new(year, month, day)
+    DateTime.new(year, month, day)
   end
 
 end

@@ -147,17 +147,16 @@ class PostReader
 end
 
 class Post
-  attr_accessor :index_entry, :timestamp
+  attr_accessor :index_entry
 
   def initialize(post_path)
     @post_path = post_path
-
     name = file_name
     path = file_path
-    @index_entry = <<-eos
+    @index_entry = <<-EOS
     <li><a href=\"/#{path}\">#{name}</a>
     <span class=\"small\">#{@date}</li>
-    eos
+    EOS
     @index_entry += preview
   end
 
@@ -174,14 +173,12 @@ class Post
   def preview
     match = /<article>\s*<p>\s*.{200}\S*/.match(contents)
     if match
-      snippet = match.to_s
-      rest_of_post = match.post_match
-      <<-eos
-        <span>#{snippet}</span>
+      <<-EOS
+        <span>#{match.to_s}</span>
         <a title=\"Click to Expand\" class=\"expand\"> ... (view full post)</a>
-        <div class = \"hidden\">#{rest_of_post}</span>
+        <div class = \"hidden\">#{match.post_match}</span>
         <a title=\"Click to Collapse\" class=\"collapse\"> <br>(collapse post)</a>
-      eos
+      EOS
     else
       ""
     end

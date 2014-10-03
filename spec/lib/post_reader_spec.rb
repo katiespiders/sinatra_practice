@@ -1,3 +1,5 @@
+# NONE OF THESE WORK RIGHT NOW BECAUSE I CHANGED THE DIRECTORY STRUCTURE
+
 require 'spec_helper'
 
 describe "class PostReader" do

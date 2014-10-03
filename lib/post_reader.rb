@@ -159,9 +159,7 @@ class Post
   end
 
   def file_path
-    path = @post_path.gsub("views/", "")
-    path.gsub!("blog-index", "")
-    path.gsub!(".erb", "")
+    @post_path.gsub("views/", "").gsub("blog-index", "").gsub(".erb", "")
   end
 
   def contents
@@ -169,9 +167,13 @@ class Post
     file.readlines
   end
 
+  def post_contents
+    contents.join
+  end
+
   def snippet
-    # start this after the first <p> tag
-    contents.join.slice(0,200)
+    snippet = contents.join.slice(/<p>\s*.{200}\S*/)
+    snippet ? snippet.gsub("<p>","") : snippet
   end
 
   def date

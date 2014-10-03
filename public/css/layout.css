@@ -86,6 +86,10 @@ li:hover > .dropdown {
   margin: 0 10px 0 10px;
 }
 
+.snippet {
+  display: inline;
+}
+
 .expand {
   text-decoration: underline;
   color: #1129c6;

@@ -11,7 +11,11 @@
   <h3>All <%=blog.count%> posts:</h3>
   <ul>
     <% blog.most_recent(blog.count).each do |post| %>
-      <%=post.index_entry%>
+      <li> <%= post.link %>
+      <span class="small"> <%= "#{post.date.strftime("%B %-d, %Y")}" %></span></li>
+      <p>
+        <%= post.snippet %>
+      </p>
     <% end %>
   </ul>
 
@@ -22,7 +26,11 @@
     <h3><%=blog.first_index_heading%></h3>
     <ul>
       <% blog.most_recent(PER_PAGE).each do |post| %>
-        <%=post.index_entry%>
+      <li> <%= post.link %>
+      <span class="small"> <%= "#{post.date.strftime("%B %-d, %Y")}" %></span></li>
+        <p>
+          <%= post.snippet %>
+        </p>
       <% end %>
     </ul>
 
@@ -33,7 +41,11 @@
 
     <ul>
       <% blog.slice((page-1)*PER_PAGE, PER_PAGE).each do |post| %>
-        <%=post.index_entry%>
+      <li> <%= post.link %>
+      <span class="small"> <%= "#{post.date.strftime("%B %-d, %Y")}" %></span></li>
+        <p>
+          <%= post.snippet %>
+        </p>
       <% end %>
     </ul>
   <% end %>

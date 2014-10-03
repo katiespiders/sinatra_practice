@@ -19,9 +19,6 @@ class MyApp < Sinatra::Base # has many built in methods
   end
 
   post '/blog-index' do
-    # erb "blog_index".to_sym
-    puts params.inspect
-    # add input to something
     redirect to("/blog-index")
   end
 

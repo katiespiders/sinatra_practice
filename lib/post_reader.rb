@@ -7,7 +7,7 @@ class PostReader
   def initialize(posts_dir="views/posts/*/*/*/*")
     post_paths = Dir.glob(posts_dir)
     @posts = post_paths.collect { |post_path| Post.new(post_path) }
-    @posts.sort_by! { |post| post.datestamp }
+    @posts.sort_by! { |post| post.date }
     @posts.reverse!
     @count = @posts.count
     @last_page = (@count/PER_PAGE.to_f).ceil
@@ -147,18 +147,11 @@ class PostReader
 end
 
 class Post
-  attr_accessor :index_entry, :datestamp
+  attr_accessor :link, :name, :path
 
   def initialize(post_path)
     @post_path = post_path
-    name = file_name
-    path = file_path
-    @datestamp = date
-    @index_entry = <<-EOS
-    <li><a href=\"/#{path}\">#{name}</a>
-    <span class=\"small\">#{@datestamp.strftime("%B %-d, %Y")}</li>
-    EOS
-    @index_entry += preview
+    @link = "<a href=\"/#{file_path}\">#{file_name}</a>"
   end
 
   def file_name
@@ -171,23 +164,14 @@ class Post
     path.gsub!(".erb", "")
   end
 
-  def preview
-    match = /<article>\s*<p>\s*.{200}\S*/.match(contents)
-    if match
-      <<-EOS
-        <span>#{match.to_s}</span>
-        <a title=\"Click to Expand\" class=\"expand\"> ... (view full post)</a>
-        <div class = \"hidden\">#{match.post_match}</span>
-        <a title=\"Click to Collapse\" class=\"collapse\"> <br>(collapse post)</a>
-      EOS
-    else
-      "<br>"
-    end
-  end
-
   def contents
     file = File.new(@post_path)
-    file.read
+    file.readlines
+  end
+
+  def snippet
+    # start this after the first <p> tag
+    contents.join.slice(0,200)
   end
 
   def date

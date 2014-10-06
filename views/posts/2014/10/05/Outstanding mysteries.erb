@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Outstanding mysteries in HTMLCSSJS</title>
+</head>
+<body>
+  <article>
+    <h1>This could be long. There are a lot of mysteries.</h1>
+    <p>Right now, this "blog post" is just my running notes on what I'm currently baffled about on this website. I'm putting in a bunch of extra words to this intro paragraph so that I can verify my hypothesis about why I'm not getting a snippet of this post on my blog index page. So, extra words done, here are is the current list of wonders and mysteries:
+      <ul>
+        <li>#1 right now is that my regex to generate a preview of each post for the blog index can't handle HTML (which is why no snippet showed up on the index for this post...the regex broke when it hit the &lt;ul&gt; tag...the experiment described in the intro paragraph confirms that hypothesis). My researches have told me (and my Rubular experiments seem to have confirmed) that it is a <a href="http://blog.codinghorror.com/parsing-html-the-cthulhu-way/">Very Bad Idea</a> to be trying parse HTML with regular expressions anyway, but I have yet to figure out the proper way to do what I'm trying to do without awakening ancient mad gods.</li>
+        <li>My JS toggle thinger toggles every instance of the "hidden" class. Some iteration of this that wasn't actually working properly did succeed in toggling only the instance that had been clicked. Why is that? This is one I feel like I could probably make some progress on...</li>
+        <li>Why can I float a nav bar to the right of my header with no problems as long as the header's position is static? Setting the header's position to fixed immediately pops the header into the narrowest width it can occupy (70px for the image +309 for the title +8 for padding and margin around the title, +242 for the nav bar = 629px for the current configuration). If I narrow the page below this width, the nav bar drops down off the header bar (nav is nested inside header). tl;dr: When the header's position is fixed, its width also becomes fixed, at the narrowest possible width.</li>
+        <li>Ugh, I really don't understand CSS positioning <em>at all</em>.
+        </li>
+      </ul>
+    </p><p>
+      Here is one very small question I did manage to answer. How do you change the spacing between list entries (not the line height in the text)? By adding a margin to the li selector:
+      <pre>
+        <code>li { margin: 0.5em; }</code></pre> <p>
+    &mdash;because a <code>li</code> element is a box that can have margins, borders, and padding, same as everything else. However, this (predictably) borked the horizontal list that makes up my nav bar, so I had to override it with a more specific selector:
+    <pre>
+      <code>nav .horizontal-list > li {
+        display: inline-block;
+        margin: 0;
+      }</code>
+    </pre>
+    </p>
+    <p>
+      I will conclude this failpost with this tiny success.
+    </p>
+</article>
+</body>
+</html>

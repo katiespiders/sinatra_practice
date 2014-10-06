@@ -2,6 +2,7 @@ header {
   /*making this fixed (or absolute, still don't understand the difference) breaks the nav box's float */
   display: block;
   height: 100px;
+  margin: 0 auto;
   border-radius: 5px;
   box-shadow: -1px 1px 2px;
   font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
@@ -22,7 +23,7 @@ header .title {
 /* Nav styling for header nav links only */
 header nav {
   float: right;
-  margin-top: 54px;
+  margin-top: 70px;
 }
 
 /* Nav styling to include blog-nav links on blog index page */
@@ -30,7 +31,7 @@ nav {
   display: block;
   height: 30px;
   border-radius: 5px;
-  background-color: #34514e;
+  background-color: #2F5248;
 }
 
 nav a {
@@ -52,14 +53,20 @@ nav ul {
   list-style: none;
 }
 
+ul.horizontal-list {
+  margin: 0;
+}
+
 nav .horizontal-list > li {
   display: inline-block;
+  margin: 0;
 }
 
 /* Drop-down menu styling */
 .dropdown {
   display: none;
   border-radius: 5px;
+  opacity: 0.9;
 }
 
 li:hover > .dropdown {
@@ -105,11 +112,15 @@ li:hover > .dropdown {
 body {
   background-color: #4b8273;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 10px;
+  /*margin: 0 0 0 0;*/
   text-align: justify;
   max-width: 900px;
   min-width: 630px;
   /*position: static;*/
+}
+
+#contents {
+  margin: 25px 50px 25px 50px;
 }
 
 a:link {
@@ -123,6 +134,12 @@ a:visited {
 pre {
   background-color: #f9ffbd;
   margin: 0 20px 0 20px;
+  border-radius: 5px;
+  /*box-shadow: -1px 1px 2px;*/
+}
+
+code {
+  background-color: #f9ffbd;
 }
 
 p {
@@ -139,6 +156,6 @@ ul {
   line-height: 1.5em;
 }
 
-.small {
-  font-size: 14px;
+li {
+  margin: 0.5em;
 }

@@ -1,4 +1,8 @@
+<!DOCTYPE html>
 <html>
+<head>
+<title>Index of blog posts</title>
+</head>
 <body>
 
 <% require './lib/post_reader.rb' %>
@@ -31,7 +35,7 @@
 <ul>
   <% blog.slice(first, count).each do |post| %>
   <li> <%= post.link %>
-  <span class="small"> <%= "#{post.date.strftime("%B %-d, %Y")}" %></span></li>
+  <small> <%= "#{post.date.strftime("%B %-d, %Y")}" %></small></li>
     <div class="snippet">
       <%= post.snippet %> <a class="expand"> ... (view full post)</a>
     </div><br>
@@ -45,6 +49,7 @@
 <nav>
   <div class = "blog-nav" >
     <%= page == 'all' ? blog.footer_all : blog.footer_links(page) %>
+    <!-- change this so the bar doesn't appear when there are no links on it-->
   </div><!--blog-nav-->
 </nav>
 

@@ -172,7 +172,7 @@ class Post
   end
 
   def snippet
-    snippet = contents.join.slice(/<p>\s*.{200}\S*/)
+    snippet = contents.join.slice(/<p>\s*.{200}\S*/) # THIS IS A VERY BAD IDEA. WHAT TO DO?
     snippet ? snippet.gsub("<p>","") : snippet
   end
 

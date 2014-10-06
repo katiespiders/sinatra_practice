@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kung Fu Ipsum</title>
+    <!-- setting a title here seems to override all other titles. how to fix that? -->
     <link href="/css/layout.css" rel="stylesheet">
   </head>
 
@@ -23,14 +23,18 @@
       </nav>
     </header>
 
-
-    <section>
-      <hr>
-      <%= yield %>
-    </section>
+    <div id="main">
+      <div id="left">
+      </div>
+      <div id="contents">
+        <%= yield %>
+      </div>
+      <div id="right">
+      </div>
+    </div>
 
 
     <hr>
-    <p class="small">Copyright Notice: Don't steal my awesome content!</p>
+    <small>&copy; 2014 Copyright Notice: Don't steal my awesome content! </small>
   </body>
 </html>
